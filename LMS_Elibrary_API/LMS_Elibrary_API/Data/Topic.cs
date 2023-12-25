@@ -12,7 +12,7 @@ namespace LMS___Elibrary.Data
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Id { get; set; }
         [Required]
-        public string CourseId { get; set; }
+        public string ClassId { get; set; }
         [Required]
         [MaxLength(255)]
         public string Name { get; set; }
@@ -21,7 +21,7 @@ namespace LMS___Elibrary.Data
         [Required]
         public bool IsDeleted { get; set; } = false;
 
-        public virtual Course Course { get; set; }
+        public virtual Classes Classes { get; set; }
         public virtual ICollection<Lesson> Lessons { get; set; }
     }
 }

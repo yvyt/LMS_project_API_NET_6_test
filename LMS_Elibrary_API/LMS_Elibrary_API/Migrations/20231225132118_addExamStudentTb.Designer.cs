@@ -4,6 +4,7 @@ using LMS___Elibrary.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LMS_Elibrary_API.Migrations
 {
     [DbContext(typeof(UserDbContext))]
-    partial class UserDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231225132118_addExamStudentTb")]
+    partial class addExamStudentTb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,20 +34,6 @@ namespace LMS_Elibrary_API.Migrations
                     b.Property<string>("CourseId")
                         .IsRequired()
                         .HasColumnType("nvarchar(255)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -78,6 +66,11 @@ namespace LMS_Elibrary_API.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -217,7 +210,7 @@ namespace LMS_Elibrary_API.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<string>("ClassId")
+                    b.Property<string>("CourseId")
                         .IsRequired()
                         .HasColumnType("nvarchar(255)");
 
@@ -234,7 +227,7 @@ namespace LMS_Elibrary_API.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ClassId");
+                    b.HasIndex("CourseId");
 
                     b.ToTable("Topic");
                 });
@@ -654,13 +647,13 @@ namespace LMS_Elibrary_API.Migrations
 
             modelBuilder.Entity("LMS___Elibrary.Data.Topic", b =>
                 {
-                    b.HasOne("LMS___Elibrary.Data.Classes", "Classes")
+                    b.HasOne("LMS___Elibrary.Data.Course", "Course")
                         .WithMany("Topics")
-                        .HasForeignKey("ClassId")
+                        .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Classes");
+                    b.Navigation("Course");
                 });
 
             modelBuilder.Entity("LMS___Elibrary.Data.UserPermission", b =>
@@ -796,8 +789,6 @@ namespace LMS_Elibrary_API.Migrations
             modelBuilder.Entity("LMS___Elibrary.Data.Classes", b =>
                 {
                     b.Navigation("StudentCourses");
-
-                    b.Navigation("Topics");
                 });
 
             modelBuilder.Entity("LMS___Elibrary.Data.Course", b =>
@@ -807,6 +798,8 @@ namespace LMS_Elibrary_API.Migrations
                     b.Navigation("Exams");
 
                     b.Navigation("Resources");
+
+                    b.Navigation("Topics");
                 });
 
             modelBuilder.Entity("LMS___Elibrary.Data.Permission", b =>

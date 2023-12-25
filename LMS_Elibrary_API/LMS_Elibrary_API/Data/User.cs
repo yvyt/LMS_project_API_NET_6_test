@@ -64,6 +64,9 @@ namespace LMS___Elibrary.Data
         public virtual ICollection<Classes> Classes { get; set; }
         public virtual ICollection<StudentCourse> StudentCourses { get; set; }
         public virtual ICollection<PrivateFile> PrivateFiles { get; set; }
+        public virtual ICollection<Resource> Resources { get; set; }
+        public virtual ICollection<Exam> Exams {  get; set; }
+        public virtual ICollection<ExamStudent> ExamStudents { get; set; }
 
 
     }

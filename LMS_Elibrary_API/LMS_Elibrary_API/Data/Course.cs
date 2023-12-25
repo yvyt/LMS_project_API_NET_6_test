@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using LMS_Elibrary_API.Data;
 
 namespace LMS___Elibrary.Data
     {
@@ -24,10 +25,14 @@ namespace LMS___Elibrary.Data
             public bool IsActive { get; set; } = true;
             [Required]
             public bool IsDeleted { get; set; } = false;
+            
 
             public virtual ICollection<Classes> Classes { get; set; }
-            public virtual ICollection<Topic> Topics { get; set; }
+            
+            public virtual ICollection<Resource> Resources { get; set; }
 
-        }
+            public virtual ICollection<Exam> Exams { get; set; }
+
     }
+}
 

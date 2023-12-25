@@ -22,6 +22,11 @@ namespace LMS___Elibrary.Data
             public DbSet<StudentCourse> StudentCourses { get; set; }
             public DbSet<FileType> Types { get; set; }
             public DbSet<PrivateFile> PrivateFiles { get; set; }
+            public DbSet<Resource> Resources { get; set; }
+            public DbSet<ExamType> ExamTypes { get; set; }
+            public DbSet<Exam> Exams { get; set; }
+
+            public DbSet<ExamStudent> ExamStudents { get; set; }
 
         #endregion
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -46,9 +51,9 @@ namespace LMS___Elibrary.Data
                 .WithMany(u=>u.Permissions)
                 .HasForeignKey(r => r.PermissionId);
             modelBuilder.Entity<Topic>()
-            .HasOne(t => t.Course)
+            .HasOne(t => t.Classes)
             .WithMany(tp => tp.Topics)
-            .HasForeignKey(t => t.CourseId);
+            .HasForeignKey(t => t.ClassId);
             modelBuilder.Entity<Lesson>()
             .HasOne(l => l.Topic)
             .WithMany(ls => ls.Lessons)
@@ -80,7 +85,40 @@ namespace LMS___Elibrary.Data
                 .HasOne(u => u.Owner)
                 .WithMany(us => us.PrivateFiles)
                 .HasForeignKey(k => k.UserId);
+            modelBuilder.Entity<Resource>()
+                .HasOne(c => c.Course)
+                .WithMany(r => r.Resources)
+                .HasForeignKey(r => r.CourseId);
+            modelBuilder.Entity<Resource>()
+                .HasOne(c => c.Type)
+                .WithMany(r => r.Resources)
+                .HasForeignKey(r => r.TypeId);
+            modelBuilder.Entity<Resource>()
+                .HasOne(r => r.Owner)
+                .WithMany(u => u.Resources)
+                .HasForeignKey(r => r.UserId);
 
+            modelBuilder.Entity<Exam>()
+                .HasOne(e => e.Type)
+                .WithMany(e => e.Exams)
+                .HasForeignKey(e => e.TypeId);
+            modelBuilder.Entity<Exam>()
+                .HasOne(e => e.Course)
+                .WithMany(e=>e.Exams)
+                .HasForeignKey(e => e.CourseId);
+            modelBuilder.Entity<Exam>()
+                .HasOne(e => e.Owner)
+                .WithMany(e => e.Exams)
+                .HasForeignKey(e => e.UserId);
+
+            modelBuilder.Entity<ExamStudent>()
+                .HasOne(e => e.Exams)
+                .WithMany(e => e.ExamStudents)
+                .HasForeignKey(e => e.ExamId);
+            modelBuilder.Entity<ExamStudent>()
+                .HasOne(e => e.Students)
+                .WithMany(e => e.ExamStudents)
+                .HasForeignKey(e => e.StudentId);
         }
     }
 }

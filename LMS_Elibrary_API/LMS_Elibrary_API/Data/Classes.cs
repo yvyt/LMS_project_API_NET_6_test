@@ -24,11 +24,19 @@ namespace LMS___Elibrary.Data
         [StringLength(255)]
         public string Name { get; set; }
 
+       
+        [MaxLength(255)]
+        public string Description { get; set; }
+        [Required]
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        [Required]
+        public bool IsActive { get; set; } = true;
+        [Required]
+        public bool IsDeleted { get; set; } = false;
+
         public virtual Course Course { get; set; }
-
-
         public virtual User TeacherUser { get; set; }
-
+        public virtual ICollection<Topic> Topics { get; set; }
         public virtual ICollection<StudentCourse> StudentCourses { get; set; }
     }
 }

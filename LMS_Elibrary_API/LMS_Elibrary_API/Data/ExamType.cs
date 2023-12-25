@@ -3,8 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LMS_Elibrary_API.Data
 {
-    [Table("Type")]
-    public class FileType
+    [Table("ExamType")]
+    public class ExamType
     {
         [Key]
         [StringLength(255)]
@@ -16,7 +16,8 @@ namespace LMS_Elibrary_API.Data
         [StringLength(255)]
         [Required]
         public string Name { get; set; }
-        public virtual ICollection<PrivateFile> PrivateFiles { get; set; }
-        public virtual ICollection<Resource> Resources { get; set; }
+
+        public ICollection<Exam> Exams { get; set; }
+       
     }
 }
