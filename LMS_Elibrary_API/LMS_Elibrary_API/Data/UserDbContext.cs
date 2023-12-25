@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using LMS_Elibrary_API.Data;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 
@@ -19,8 +20,10 @@ namespace LMS___Elibrary.Data
             public DbSet<Lesson> Lessons { get; set; }
             public DbSet<Classes> Classes { get; set; }
             public DbSet<StudentCourse> StudentCourses { get; set; }
-            
-            #endregion
+            public DbSet<FileType> Types { get; set; }
+            public DbSet<PrivateFile> PrivateFiles { get; set; }
+
+        #endregion
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Config relationship
@@ -68,6 +71,16 @@ namespace LMS___Elibrary.Data
                 .HasOne(sc => sc.Class)
                 .WithMany(c => c.StudentCourses)
                 .HasForeignKey(sc => sc.ClassId);
+
+            modelBuilder.Entity<PrivateFile>()
+                .HasOne(t => t.FileType)
+                .WithMany(t => t.PrivateFiles)
+                .HasForeignKey(k => k.TypeId);
+            modelBuilder.Entity<PrivateFile>()
+                .HasOne(u => u.Owner)
+                .WithMany(us => us.PrivateFiles)
+                .HasForeignKey(k => k.UserId);
+
         }
     }
 }
