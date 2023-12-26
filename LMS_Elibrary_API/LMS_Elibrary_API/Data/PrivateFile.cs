@@ -31,11 +31,12 @@ namespace LMS_Elibrary_API.Data
         [Required]
         public string Link { get; set; }
 
-        [Column("created_at")]
-        public DateTime CreatedAt { get; set; }
+        [Required]
 
-        [Column("updated_at")]
-        public DateTime UpdatedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        [Required]
+
+        public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
         [Column("is_active")]
         public bool IsActive { get; set; }

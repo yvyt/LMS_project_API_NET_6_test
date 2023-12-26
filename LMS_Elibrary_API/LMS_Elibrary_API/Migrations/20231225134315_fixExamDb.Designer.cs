@@ -4,6 +4,7 @@ using LMS___Elibrary.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LMS_Elibrary_API.Migrations
 {
     [DbContext(typeof(UserDbContext))]
-    partial class UserDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231225134315_fixExamDb")]
+    partial class fixExamDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,9 +59,6 @@ namespace LMS_Elibrary_API.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CourseId");
@@ -96,9 +95,6 @@ namespace LMS_Elibrary_API.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
                     b.HasKey("Id");
 
                     b.ToTable("Course");
@@ -110,9 +106,6 @@ namespace LMS_Elibrary_API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -132,9 +125,6 @@ namespace LMS_Elibrary_API.Migrations
                     b.Property<string>("TopicId")
                         .IsRequired()
                         .HasColumnType("nvarchar(255)");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -233,9 +223,6 @@ namespace LMS_Elibrary_API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -246,9 +233,6 @@ namespace LMS_Elibrary_API.Migrations
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -392,32 +376,6 @@ namespace LMS_Elibrary_API.Migrations
                     b.ToTable("UserRole");
                 });
 
-            modelBuilder.Entity("LMS_Elibrary_API.Data.Answer", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<bool>("IsCorrect")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("QuestionId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(255)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("QuestionId");
-
-                    b.ToTable("Answer");
-                });
-
             modelBuilder.Entity("LMS_Elibrary_API.Data.Exam", b =>
                 {
                     b.Property<string>("Id")
@@ -445,12 +403,9 @@ namespace LMS_Elibrary_API.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Link")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("NumberQuestion")
-                        .HasColumnType("int");
 
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
@@ -458,9 +413,6 @@ namespace LMS_Elibrary_API.Migrations
                     b.Property<string>("TypeId")
                         .IsRequired()
                         .HasColumnType("nvarchar(255)");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -475,30 +427,6 @@ namespace LMS_Elibrary_API.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Exam");
-                });
-
-            modelBuilder.Entity("LMS_Elibrary_API.Data.ExamQuestion", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("ExamId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("QuestionId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(255)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ExamId");
-
-                    b.HasIndex("QuestionId");
-
-                    b.ToTable("ExamQuestion");
                 });
 
             modelBuilder.Entity("LMS_Elibrary_API.Data.ExamStudent", b =>
@@ -572,7 +500,8 @@ namespace LMS_Elibrary_API.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasColumnName("created_at");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit")
@@ -603,7 +532,8 @@ namespace LMS_Elibrary_API.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasColumnName("updated_at");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -619,53 +549,6 @@ namespace LMS_Elibrary_API.Migrations
                     b.ToTable("Private_File");
                 });
 
-            modelBuilder.Entity("LMS_Elibrary_API.Data.Question", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("ClassId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ExamTypeId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<bool>("IsMultiple")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("Level")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("UpdateAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(255)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClassId");
-
-                    b.HasIndex("ExamTypeId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Question");
-                });
-
             modelBuilder.Entity("LMS_Elibrary_API.Data.Resource", b =>
                 {
                     b.Property<string>("Id")
@@ -676,7 +559,7 @@ namespace LMS_Elibrary_API.Migrations
                     b.Property<DateTime>("ApprovalAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("ClassId")
+                    b.Property<string>("CourseId")
                         .IsRequired()
                         .HasColumnType("nvarchar(255)");
 
@@ -707,16 +590,13 @@ namespace LMS_Elibrary_API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(255)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ClassId");
+                    b.HasIndex("CourseId");
 
                     b.HasIndex("TypeId");
 
@@ -823,17 +703,6 @@ namespace LMS_Elibrary_API.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("LMS_Elibrary_API.Data.Answer", b =>
-                {
-                    b.HasOne("LMS_Elibrary_API.Data.Question", "Question")
-                        .WithMany("Answers")
-                        .HasForeignKey("QuestionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Question");
-                });
-
             modelBuilder.Entity("LMS_Elibrary_API.Data.Exam", b =>
                 {
                     b.HasOne("LMS___Elibrary.Data.Classes", "Classes")
@@ -859,25 +728,6 @@ namespace LMS_Elibrary_API.Migrations
                     b.Navigation("Owner");
 
                     b.Navigation("Type");
-                });
-
-            modelBuilder.Entity("LMS_Elibrary_API.Data.ExamQuestion", b =>
-                {
-                    b.HasOne("LMS_Elibrary_API.Data.Exam", "Exam")
-                        .WithMany("ExamQuestions")
-                        .HasForeignKey("ExamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("LMS_Elibrary_API.Data.Question", "Question")
-                        .WithMany("ExamQuestions")
-                        .HasForeignKey("QuestionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Exam");
-
-                    b.Navigation("Question");
                 });
 
             modelBuilder.Entity("LMS_Elibrary_API.Data.ExamStudent", b =>
@@ -918,38 +768,11 @@ namespace LMS_Elibrary_API.Migrations
                     b.Navigation("Owner");
                 });
 
-            modelBuilder.Entity("LMS_Elibrary_API.Data.Question", b =>
-                {
-                    b.HasOne("LMS___Elibrary.Data.Classes", "Classes")
-                        .WithMany("Questions")
-                        .HasForeignKey("ClassId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("LMS_Elibrary_API.Data.ExamType", "ExamType")
-                        .WithMany("Questions")
-                        .HasForeignKey("ExamTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("LMS___Elibrary.Data.User", "Owner")
-                        .WithMany("Questions")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Classes");
-
-                    b.Navigation("ExamType");
-
-                    b.Navigation("Owner");
-                });
-
             modelBuilder.Entity("LMS_Elibrary_API.Data.Resource", b =>
                 {
-                    b.HasOne("LMS___Elibrary.Data.Classes", "Classes")
+                    b.HasOne("LMS___Elibrary.Data.Course", "Course")
                         .WithMany("Resources")
-                        .HasForeignKey("ClassId")
+                        .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -965,7 +788,7 @@ namespace LMS_Elibrary_API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Classes");
+                    b.Navigation("Course");
 
                     b.Navigation("Owner");
 
@@ -976,10 +799,6 @@ namespace LMS_Elibrary_API.Migrations
                 {
                     b.Navigation("Exams");
 
-                    b.Navigation("Questions");
-
-                    b.Navigation("Resources");
-
                     b.Navigation("StudentCourses");
 
                     b.Navigation("Topics");
@@ -988,6 +807,8 @@ namespace LMS_Elibrary_API.Migrations
             modelBuilder.Entity("LMS___Elibrary.Data.Course", b =>
                 {
                     b.Navigation("Classes");
+
+                    b.Navigation("Resources");
                 });
 
             modelBuilder.Entity("LMS___Elibrary.Data.Permission", b =>
@@ -1017,8 +838,6 @@ namespace LMS_Elibrary_API.Migrations
 
                     b.Navigation("PrivateFiles");
 
-                    b.Navigation("Questions");
-
                     b.Navigation("Resources");
 
                     b.Navigation("Roles");
@@ -1028,16 +847,12 @@ namespace LMS_Elibrary_API.Migrations
 
             modelBuilder.Entity("LMS_Elibrary_API.Data.Exam", b =>
                 {
-                    b.Navigation("ExamQuestions");
-
                     b.Navigation("ExamStudents");
                 });
 
             modelBuilder.Entity("LMS_Elibrary_API.Data.ExamType", b =>
                 {
                     b.Navigation("Exams");
-
-                    b.Navigation("Questions");
                 });
 
             modelBuilder.Entity("LMS_Elibrary_API.Data.FileType", b =>
@@ -1045,13 +860,6 @@ namespace LMS_Elibrary_API.Migrations
                     b.Navigation("PrivateFiles");
 
                     b.Navigation("Resources");
-                });
-
-            modelBuilder.Entity("LMS_Elibrary_API.Data.Question", b =>
-                {
-                    b.Navigation("Answers");
-
-                    b.Navigation("ExamQuestions");
                 });
 #pragma warning restore 612, 618
         }

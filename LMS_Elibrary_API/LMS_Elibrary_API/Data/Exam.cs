@@ -12,14 +12,15 @@ namespace LMS_Elibrary_API.Data
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Id { get; set; }
+        [Required]
+        public string Name { get; set; }
 
-        
         [Required]
         public string TypeId { get; set; }
 
        
         [Required]
-        public string CourseId { get; set; }
+        public string ClassId { get; set; }
         [Required]
         public string UserId { get; set; }
 
@@ -33,11 +34,14 @@ namespace LMS_Elibrary_API.Data
 
       
         [Required]
-        public string Link { get; set; }
+        public int NumberQuestion { get; set; }
 
         [Required]
 
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        [Required]
+
+        public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
         [Required]
 
@@ -52,9 +56,11 @@ namespace LMS_Elibrary_API.Data
 
         // Navigation property
         public virtual ExamType Type { get; set; }
-        public virtual Course Course { get; set; }
+        public virtual Classes Classes { get; set; }
         public virtual User Owner {  get; set; }
         public virtual ICollection<ExamStudent> ExamStudents { get; set; }
+        public virtual ICollection<ExamQuestion> ExamQuestions { get; set; }
+
 
     }
 }

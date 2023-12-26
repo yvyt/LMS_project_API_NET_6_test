@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using LMS_Elibrary_API.Data;
 
 namespace LMS___Elibrary.Data
 {
@@ -28,7 +29,11 @@ namespace LMS___Elibrary.Data
         [MaxLength(255)]
         public string Description { get; set; }
         [Required]
+
         public DateTime CreatedAt { get; set; } = DateTime.Now;
+        [Required]
+
+        public DateTime UpdatedAt { get; set; } = DateTime.Now;
         [Required]
         public bool IsActive { get; set; } = true;
         [Required]
@@ -38,5 +43,10 @@ namespace LMS___Elibrary.Data
         public virtual User TeacherUser { get; set; }
         public virtual ICollection<Topic> Topics { get; set; }
         public virtual ICollection<StudentCourse> StudentCourses { get; set; }
+        public virtual ICollection<Exam> Exams { get; set; }
+        public virtual ICollection<Resource> Resources { get; set; }
+        public ICollection<Question> Questions { get; set; }
+
+
     }
 }

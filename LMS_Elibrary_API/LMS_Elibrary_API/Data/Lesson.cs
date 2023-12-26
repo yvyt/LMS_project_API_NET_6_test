@@ -15,11 +15,18 @@ namespace LMS___Elibrary.Data
             public string Id { get; set; }
             [Required]
             public string TopicId { get; set; }
+           
             [Required]
             [MaxLength(255)]
             public string Title { get; set; }
             [Required]
             public string Link { get; set; }
+            [Required]
+
+            public DateTime CreatedAt { get; set; } = DateTime.Now;
+            [Required]
+
+            public DateTime UpdatedAt { get; set; } = DateTime.Now;
             [Required]
             public bool IsActive { get; set; } = true;
             [Required]

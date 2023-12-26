@@ -4,6 +4,7 @@ using LMS___Elibrary.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LMS_Elibrary_API.Migrations
 {
     [DbContext(typeof(UserDbContext))]
-    partial class UserDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231226014938_addAnswerDB")]
+    partial class addAnswerDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -477,30 +479,6 @@ namespace LMS_Elibrary_API.Migrations
                     b.ToTable("Exam");
                 });
 
-            modelBuilder.Entity("LMS_Elibrary_API.Data.ExamQuestion", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("ExamId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("QuestionId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(255)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ExamId");
-
-                    b.HasIndex("QuestionId");
-
-                    b.ToTable("ExamQuestion");
-                });
-
             modelBuilder.Entity("LMS_Elibrary_API.Data.ExamStudent", b =>
                 {
                     b.Property<string>("Id")
@@ -861,25 +839,6 @@ namespace LMS_Elibrary_API.Migrations
                     b.Navigation("Type");
                 });
 
-            modelBuilder.Entity("LMS_Elibrary_API.Data.ExamQuestion", b =>
-                {
-                    b.HasOne("LMS_Elibrary_API.Data.Exam", "Exam")
-                        .WithMany("ExamQuestions")
-                        .HasForeignKey("ExamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("LMS_Elibrary_API.Data.Question", "Question")
-                        .WithMany("ExamQuestions")
-                        .HasForeignKey("QuestionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Exam");
-
-                    b.Navigation("Question");
-                });
-
             modelBuilder.Entity("LMS_Elibrary_API.Data.ExamStudent", b =>
                 {
                     b.HasOne("LMS_Elibrary_API.Data.Exam", "Exams")
@@ -1028,8 +987,6 @@ namespace LMS_Elibrary_API.Migrations
 
             modelBuilder.Entity("LMS_Elibrary_API.Data.Exam", b =>
                 {
-                    b.Navigation("ExamQuestions");
-
                     b.Navigation("ExamStudents");
                 });
 
@@ -1050,8 +1007,6 @@ namespace LMS_Elibrary_API.Migrations
             modelBuilder.Entity("LMS_Elibrary_API.Data.Question", b =>
                 {
                     b.Navigation("Answers");
-
-                    b.Navigation("ExamQuestions");
                 });
 #pragma warning restore 612, 618
         }

@@ -3,8 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LMS_Elibrary_API.Data
 {
-    [Table("ExamType")]
-    public class ExamType
+    [Table("ExamQuestion")]
+    public class ExamQuestion
     {
         [Key]
         [StringLength(255)]
@@ -12,13 +12,14 @@ namespace LMS_Elibrary_API.Data
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Id { get; set; }
 
-        [Column("name")]
-        [StringLength(255)]
         [Required]
-        public string Name { get; set; }
+        public string QuestionId { get; set; }
 
-        public ICollection<Exam> Exams { get; set; }
-        public ICollection<Question> Questions { get; set; }
-       
+        [Required]
+        public string ExamId { get; set; }
+
+        // Navigation properties
+        public virtual Question Question { get; set; }
+        public virtual Exam Exam { get; set; }
     }
 }

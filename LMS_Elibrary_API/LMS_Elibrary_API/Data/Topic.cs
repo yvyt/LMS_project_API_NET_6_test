@@ -17,6 +17,12 @@ namespace LMS___Elibrary.Data
         [MaxLength(255)]
         public string Name { get; set; }
         [Required]
+
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        [Required]
+
+        public DateTime UpdatedAt { get; set; } = DateTime.Now;
+        [Required]
         public bool IsActive { get; set; } = true;
         [Required]
         public bool IsDeleted { get; set; } = false;

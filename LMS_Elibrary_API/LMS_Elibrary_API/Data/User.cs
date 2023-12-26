@@ -67,6 +67,7 @@ namespace LMS___Elibrary.Data
         public virtual ICollection<Resource> Resources { get; set; }
         public virtual ICollection<Exam> Exams {  get; set; }
         public virtual ICollection<ExamStudent> ExamStudents { get; set; }
+        public virtual ICollection<Question> Questions { get; set; }
 
 
     }

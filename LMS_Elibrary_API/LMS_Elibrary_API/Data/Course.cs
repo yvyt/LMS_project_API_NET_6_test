@@ -20,7 +20,11 @@ namespace LMS___Elibrary.Data
             [Required]
             public bool Status { get; set; } = false;
             [Required]
+
             public DateTime CreatedAt { get; set; } = DateTime.Now;
+            [Required]
+
+            public DateTime UpdatedAt { get; set; } = DateTime.Now;
             [Required]
             public bool IsActive { get; set; } = true;
             [Required]
@@ -29,9 +33,7 @@ namespace LMS___Elibrary.Data
 
             public virtual ICollection<Classes> Classes { get; set; }
             
-            public virtual ICollection<Resource> Resources { get; set; }
 
-            public virtual ICollection<Exam> Exams { get; set; }
 
     }
 }

@@ -21,7 +21,7 @@ namespace LMS_Elibrary_API.Data
 
 
         [Required]
-        public string CourseId { get; set; }
+        public string ClassId { get; set; }
 
         [Required]
         public DateTime ApprovalAt { get; set; }
@@ -38,7 +38,11 @@ namespace LMS_Elibrary_API.Data
 
         [Column(TypeName = "timestamp")]
         [Required]
-        public DateTime CreatedAt { get; set; }
+
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        [Required]
+
+        public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
         [Required]
         public bool IsActive { get; set; }
@@ -48,7 +52,7 @@ namespace LMS_Elibrary_API.Data
 
         // Navigation property
         public virtual FileType Type { get; set; }
-        public virtual Course Course { get; set; }
+        public virtual Classes Classes { get; set; }
         public virtual User Owner { get; set; }
     }
 }
